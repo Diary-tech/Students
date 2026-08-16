@@ -1,4 +1,4 @@
-import studentRepository from '../repository/studentRepository.ts';
+import studentRepository from '../repositories/studentRepository.ts';
 import type { Student } from '../model/Student.ts';
 
 export class StudentService {
