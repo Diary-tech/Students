@@ -1,5 +1,6 @@
+import bcrypt from 'bcrypt';
 import studentRepository from '../repositories/studentRepository.ts';
-import type { Student } from '../model/Student.ts';
+import type { Student, CreateStudentDTO } from '../model/Student.ts';
 
 export class StudentService {
   async getAllStudents(): Promise<Student[]> {
@@ -10,13 +11,19 @@ export class StudentService {
     return await studentRepository.findById(id);
   }
 
-  async createStudent(data: Partial<Student>): Promise<Student> {
-    return await studentRepository.create(data as {
-      firstName: string;
-      lastName: string;
-      email: string;
-      age?: number;
+  async createStudent(dto: CreateStudentDTO): Promise<Student> {
+    const saltRounds = 10;
+    const password_hash = await bcrypt.hash(dto.password, saltRounds);
+
+    const newStudent = await studentRepository.create({
+      firstName: dto.first_name,
+      lastName: dto.last_name,
+      email: dto.email,
+      passwordHash: password_hash,
+      age: dto.age,
     });
+
+    return newStudent;
   }
 
   async updateStudent(id: string, data: Partial<Student>): Promise<Student | null> {

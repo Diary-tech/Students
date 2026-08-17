@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from "express";  
-import jwt from "jsonwebtoken";
+import {type Request,type Response,type NextFunction } from "express";  
+import jwt, {type JwtPayload} from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 if (!JWT_SECRET) {
@@ -8,7 +8,6 @@ if (!JWT_SECRET) {
 
 export interface AuthPayload extends JwtPayload {
   id: string;
-  role?: string;
 }
 
 export interface AuthRequest extends Request {

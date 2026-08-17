@@ -8,22 +8,41 @@ export class StudentRepository {
     return result.rows;
   }
 
+  async findByEmail(email: string): Promise<Student | null> {
+  const result = await pool.query(
+    'SELECT * FROM students WHERE email = $1',
+    [email]
+  );
+  return result.rows[0] ?? null;
+  }
   async findById(id: string): Promise<Student | null> {
     const query = 'SELECT * FROM students WHERE id = $1';
     const result = await pool.query<Student>(query, [id]);
     return result.rows[0] || null;
   }
 
-  async create(studentData: { firstName: string; lastName: string; email: string; age?: number }): Promise<Student> {
-    const query = `
-      INSERT INTO students (first_name, last_name, email, age)
-      VALUES ($1, $2, $3, $4)
-      RETURNING *
-    `;
-    const values = [studentData.firstName, studentData.lastName, studentData.email, studentData.age ?? null];
-    const result = await pool.query<Student>(query, values);
-    return result.rows[0];
-  }
+  async create(studentData: { 
+  firstName: string; 
+  lastName: string; 
+  email: string; 
+  passwordHash: string;
+  age?: number 
+}): Promise<Student> {
+  const query = `
+    INSERT INTO students (first_name, last_name, email, password_hash, age)
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING *
+  `;
+  const values = [
+    studentData.firstName, 
+    studentData.lastName, 
+    studentData.email, 
+    studentData.passwordHash,
+    studentData.age ?? null
+  ];
+  const result = await pool.query<Student>(query, values);
+  return result.rows[0];
+}
 
   async update(id: string, studentData: Partial<Student>): Promise<Student | null> {
     const fields = [];
