@@ -33,6 +33,15 @@ export class StudentService {
   async deleteStudent(id: string): Promise<boolean> {
     return await studentRepository.delete(id);
   }
+
+  async getAverageAge(): Promise<number> {
+    const students = await studentRepository.findAll();
+    if (students.length === 0) return 0;
+
+    const totalAge = students.reduce((acc, student) => acc + student.age, 0);
+    return totalAge / students.length;
+  }
+
 }
 
 export default new StudentService();

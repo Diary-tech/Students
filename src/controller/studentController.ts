@@ -114,10 +114,20 @@ export const deleteStudent = async (req: Request, res: Response): Promise<void> 
   }
 };
 
+const getAverageAge = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const averageAge = await studentService.getAverageAge();
+      res.status(200).json({ averageAge });
+    } catch (error) {
+      res.status(500).json({ message: "Erreur lors du calcul de la moyenne d'âge." });
+    }
+  }
+
 export default {
   getAllStudents,
   getStudentById,
   createStudent,
   updateStudent,
-  deleteStudent
+  deleteStudent,
+  getAverageAge
 };

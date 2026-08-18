@@ -1,5 +1,5 @@
 import express, { type Express, type Request, type Response } from 'express';
-import { getAllStudents, createStudent, deleteStudent, updateStudent } from './controller/studentController.ts';
+import studentController, { getAllStudents, createStudent, deleteStudent, updateStudent } from './controller/studentController.ts';
 import { errorHandler } from './security/errorHandler.middleware.ts';
 import { authenticateToken } from './security/auth.middleware.ts';
 import { login } from './controller/authController.ts';
@@ -21,6 +21,8 @@ app.put('/students/:id', authenticateToken, updateStudent);
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
+
+app.get('/students/average_age', studentController.getAverageAge);
 
 app.use(errorHandler);
 
