@@ -11,7 +11,7 @@ export const getAllStudents = async (req: Request, res: Response): Promise<void>
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Erreur lors de la récupération des étudiants',
+      message: 'Error while fetching students',
       error
     });
   }
@@ -25,7 +25,7 @@ export const getStudentById = async (req: Request, res: Response): Promise<void>
     if (!student) {
       res.status(404).json({
         success: false,
-        message: 'Étudiant introuvable'
+        message: 'Student not found'
       });
       return;
     }
@@ -37,7 +37,7 @@ export const getStudentById = async (req: Request, res: Response): Promise<void>
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Erreur lors de la récupération de l’étudiant',
+      message: 'Error while fetching the student',
       error
     });
   }
@@ -69,20 +69,20 @@ export const updateStudent = async (req: Request, res: Response): Promise<void> 
     if (!student) {
       res.status(404).json({
         success: false,
-        message: 'Étudiant introuvable'
+        message: 'Student not found'
       });
       return;
     }
 
     res.status(200).json({
       success: true,
-      message: 'Étudiant mis à jour avec succès',
+      message: 'Student updated successfully',
       data: student
     });
   } catch (error) {
     res.status(400).json({
       success: false,
-      message: 'Erreur lors de la modification de l’étudiant',
+      message: 'Error while updating the student',
       error
     });
   }
@@ -96,19 +96,19 @@ export const deleteStudent = async (req: Request, res: Response): Promise<void> 
     if (!deleted) {
       res.status(404).json({
         success: false,
-        message: 'Étudiant introuvable'
+        message: 'Student not found'
       });
       return;
     }
 
     res.status(200).json({
       success: true,
-      message: 'Étudiant supprimé avec succès'
+      message: 'Student deleted successfully'
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Erreur lors de la suppression de l’étudiant',
+      message: 'Error while deleting the student',
       error
     });
   }
@@ -119,7 +119,7 @@ const getAverageAge = async (req: Request, res: Response): Promise<void> => {
       const averageAge = await studentService.getAverageAge();
       res.status(200).json({ averageAge });
     } catch (error) {
-      res.status(500).json({ message: "Erreur lors du calcul de la moyenne d'âge." });
+      res.status(500).json({ message: "Error while calculating the average age." });
     }
   }
 

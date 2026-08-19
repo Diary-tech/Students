@@ -24,7 +24,6 @@ export const errorHandler = (
     return res.status(err.statusCode).json({ message: err.message });
   }
 
-  // Erreur non prévue : log complet côté serveur, message générique côté client
   console.error(err);
 
   return res.status(500).json({
