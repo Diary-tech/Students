@@ -1,7 +1,7 @@
 import express, { type Express, type Request, type Response } from 'express';
 import studentController, { getAllStudents, createStudent, deleteStudent, updateStudent } from './controller/studentController.ts';
-import { errorHandler } from './security/errorHandler.middleware.ts';
-import { authenticateToken } from './security/auth.middleware.ts';
+import { errorHandler } from './security/errorHandlerMiddleware.ts';
+import { authenticateToken } from './security/authMiddleware.ts';
 import { login } from './controller/authController.ts';
 
 const app: Express = express();
