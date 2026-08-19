@@ -22,7 +22,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
 
-app.get('/students/average_age', studentController.getAverageAge);
+app.get('/students/average_age',authenticateToken ,studentController.getAverageAge);
 
 app.use(errorHandler);
 
